@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portafolio — Alonso Carbajal
 
-## Getting Started
+Portafolio personal bilingüe (ES/EN) de Alonso Carbajal, estudiante de Ingeniería de Sistemas y desarrollador fullstack. Incluye proyectos, experiencia en hackatones, stack técnico, certificaciones y formulario de contacto.
 
-First, run the development server:
+## Stack
+
+- [Next.js](https://nextjs.org) 16 (App Router + Turbopack)
+- React 19 + TypeScript
+- Tailwind CSS 4
+- Framer Motion
+- next-themes (tema claro/oscuro)
+- simple-icons
+- Formspree para el formulario de contacto
+
+## Desarrollo
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev      # servidor de desarrollo
+npm run build    # build de producción
+npm run start    # servidor de producción
+npm run lint     # ESLint
+```
 
-## Learn More
+## Estructura
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/
+│   ├── layout.tsx          # metadata, fuentes, providers y JSON-LD
+│   ├── page.tsx            # composición de las secciones
+│   ├── not-found.tsx       # página 404 bilingüe
+│   ├── globals.css         # tema, utilidades y accesibilidad
+│   ├── manifest.ts         # manifest PWA
+│   ├── robots.ts           # robots.txt
+│   ├── sitemap.ts          # sitemap.xml
+│   └── opengraph-image.tsx # imagen OG generada
+├── components/             # Navbar, Hero, About, Experience, Stack,
+│                           # Certifications, Projects, Contact, Footer
+├── context/                # LanguageContext y ThemeProvider
+└── lib/                    # utilidades compartidas (URL del sitio)
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contenido bilingüe
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Los textos ES/EN viven en `src/context/LanguageContext.tsx`. Para editar una sección, busca su prefijo (`hero.*`, `about.*`, `experience.*`, `projects.*`, `certs.*`, `contact.*`).
 
-## Deploy on Vercel
+## Contacto
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- GitHub: [alowincr](https://github.com/alowincr)
+- LinkedIn: [alonso-carbajal-dev](https://www.linkedin.com/in/alonso-carbajal-dev/)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Despliegue
+
+El proyecto está pensado para desplegarse en Vercel. Si configuras un dominio propio, define `NEXT_PUBLIC_SITE_URL` para que las URLs canónicas, el sitemap, `robots.txt`, el JSON-LD y la imagen OG usen la URL correcta (sin barra final).
+
+Variables de entorno disponibles (ver `.env.example`):
+
+| Variable | Uso | Requerida |
+|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | URL pública del sitio | Recomendada |
+| `NEXT_PUBLIC_FORMSPREE_ID` | ID del formulario de Formspree | Opcional (tiene fallback) |
