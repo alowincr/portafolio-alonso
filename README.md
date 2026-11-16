@@ -2,6 +2,8 @@
 
 Portafolio personal **bilingüe (ES/EN)** de Alonso Carbajal, estudiante de Ingeniería de Sistemas y desarrollador fullstack. Reúne proyectos, experiencia en hackatones, stack técnico, certificaciones, descarga de CV y un formulario de contacto.
 
+**Sitio en vivo:** [alonso-carbajal-portafolio.netlify.app](https://alonso-carbajal-portafolio.netlify.app/)
+
 ## Características
 
 - Interfaz bilingüe español/inglés con cambio de idioma en tiempo real y persistencia en `localStorage`.
@@ -75,17 +77,19 @@ Todas son opcionales para desarrollo local. En producción se recomienda configu
 
 | Variable | Uso | Requerida |
 |---|---|---|
-| `NEXT_PUBLIC_SITE_URL` | URL pública del sitio, **sin barra final** (ej. `https://tudominio.com`). | Recomendada |
+| `NEXT_PUBLIC_SITE_URL` | URL pública del sitio, **sin barra final** (ej. `https://alonso-carbajal-portafolio.netlify.app`). | Recomendada (obligatoria en Netlify) |
 | `NEXT_PUBLIC_FORMSPREE_ID` | ID del formulario de Formspree. | Opcional |
-| `VERCEL_PROJECT_PRODUCTION_URL` | La define Vercel automáticamente; se usa si `NEXT_PUBLIC_SITE_URL` no existe. | No configurar |
+| `VERCEL_PROJECT_PRODUCTION_URL` | Solo la define Vercel; no existe en Netlify. | No configurar |
 
 `src/lib/site.ts` resuelve la URL base en este orden:
 
 1. `NEXT_PUBLIC_SITE_URL`
-2. `VERCEL_PROJECT_PRODUCTION_URL` (entorno Vercel)
+2. `VERCEL_PROJECT_PRODUCTION_URL` (solo si se despliega en Vercel)
 3. `http://localhost:3000` como fallback
 
 Si el valor no incluye protocolo, se antepone `https://`. Esa URL se usa en la metadata/canonical, el JSON-LD, `sitemap.xml` y `robots.txt`.
+
+> **Netlify:** como `VERCEL_PROJECT_PRODUCTION_URL` no existe en esta plataforma, configura `NEXT_PUBLIC_SITE_URL` en las variables de entorno del sitio para evitar que el sitemap, `robots.txt` y las URLs canónicas apunten a `localhost`.
 
 > El formulario incluye un ID de Formspree de respaldo en el código. Para recibir los mensajes en tu propia cuenta, define `NEXT_PUBLIC_FORMSPREE_ID` con tu ID real.
 
@@ -151,15 +155,32 @@ Para añadir o editar un texto, actualiza su clave en **ambos** idiomas (`es` y 
 
 ## Despliegue
 
-El proyecto está pensado para [Vercel](https://vercel.com):
+El proyecto está desplegado en **Netlify**:
 
-1. Importa el repositorio en Vercel.
-2. Define `NEXT_PUBLIC_SITE_URL` con el dominio final (sin barra final) y, si corresponde, `NEXT_PUBLIC_FORMSPREE_ID`.
-3. Despliega. Vercel detecta Next.js automáticamente.
+**https://alonso-carbajal-portafolio.netlify.app/**
 
-Si usas un dominio propio, configura `NEXT_PUBLIC_SITE_URL` para que la metadata, el JSON-LD, el sitemap y `robots.txt` apunten a la URL correcta. La imagen OG no depende de esta variable.
+### Desde Netlify
 
-También puedes desplegar en cualquier plataforma compatible con Node.js 20.9+ ejecutando `npm run build` y `npm run start`.
+1. Importa el repositorio en Netlify (Add new site → Import an existing project).
+2. Netlify detecta Next.js automáticamente y configura el runtime oficial.
+3. En **Site configuration → Environment variables**, define:
+   - `NEXT_PUBLIC_SITE_URL=https://alonso-carbajal-portafolio.netlify.app` (sin barra final).
+   - `NEXT_PUBLIC_FORMSPREE_ID` con tu ID de Formspree, si corresponde.
+4. Despliega. Cada push a la rama principal genera un nuevo deploy.
+
+### Desde la CLI de Netlify
+
+```bash
+npx netlify deploy --build --prod
+```
+
+El comando ejecuta el build en Netlify y publica el sitio en producción.
+
+La imagen OG (`opengraph-image.tsx`) se genera en el build y no depende de `NEXT_PUBLIC_SITE_URL`. Esa variable sí afecta la metadata/canonical, el JSON-LD, `sitemap.xml` y `robots.txt`.
+
+Si más adelante usas un dominio propio, actualiza `NEXT_PUBLIC_SITE_URL` con el nuevo dominio y vuelve a desplegar.
+
+> El proyecto también puede desplegarse en cualquier plataforma compatible con Node.js 20.9+ ejecutando `npm run build` y `npm run start`.
 
 ## Contacto
 
