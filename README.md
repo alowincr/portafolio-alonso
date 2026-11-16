@@ -42,17 +42,14 @@ cd portafolio-alonso
 npm install
 ```
 
-Copia las variables de entorno de ejemplo y ajusta los valores:
+Opcional: crea un archivo `.env.local` en la raíz con tus variables (ver la sección [Variables de entorno](#variables-de-entorno)):
 
-```bash
-cp .env.example .env.local
+```env
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_FORMSPREE_ID=tu_id_de_formspree
 ```
 
-En Windows (PowerShell):
-
-```powershell
-Copy-Item .env.example .env.local
-```
+Sin este archivo el proyecto también funciona en desarrollo, porque todas las variables son opcionales.
 
 Inicia el servidor de desarrollo:
 
