@@ -89,12 +89,14 @@ const translations: Translations = {
 
     // Projects
     "projects.title": "Proyectos",
-    "projects.desc": "Una selección de productos reales que he diseñado, arquitecturado y desplegado de inicio a fin.",
+    "projects.desc": "Una selección de proyectos y demos que he diseñado, arquitecturado y desplegado de inicio a fin.",
     "projects.view": "Ver Proyecto",
-
-    // Contact
+    "projects.prev": "Proyecto anterior",
+    "projects.next": "Siguiente proyecto",
+    "projects.goTo": "Ir al proyecto",
 
     // Projects descriptions
+    "projects.chanlievet.desc": "Sistema de gestión para una clínica veterinaria: tienda con carrito, reserva de citas con control de cupos y concurrencia, sala de espera en tiempo real con WebSockets y paneles de administración y veterinaria.",
     "projects.habity.desc": "App de tracking de hábitos con arquitectura full-stack. Autenticación y base de datos en tiempo real con Supabase, paneles de análisis con Recharts y exportación de reportes en PDF, con una interfaz responsiva en Tailwind CSS.",
     "projects.edurate.desc": "Plataforma de evaluación docente universitaria con anonimato garantizado. Diseñé la arquitectura de la base de datos relacional en producción, con Supabase RLS para privacidad y Next.js SSR para rendimiento.",
 
@@ -247,10 +249,14 @@ const translations: Translations = {
 
     // Projects
     "projects.title": "Projects",
-    "projects.desc": "A selection of real products I've designed, architected and shipped end to end.",
+    "projects.desc": "A selection of projects and demos I've designed, architected and shipped end to end.",
     "projects.view": "View Project",
+    "projects.prev": "Previous project",
+    "projects.next": "Next project",
+    "projects.goTo": "Go to project",
 
     // Projects descriptions
+    "projects.chanlievet.desc": "Veterinary clinic management system: store with cart, appointment booking with slot control and concurrency handling, real-time waiting room over WebSockets, and admin and vet dashboards.",
     "projects.habity.desc": "Habit tracking app with a full-stack architecture. Real-time authentication and database with Supabase, analytics dashboards with Recharts and PDF report export, with a responsive Tailwind CSS interface.",
     "projects.edurate.desc": "University teacher evaluation platform with guaranteed anonymity. I designed the production relational database architecture, with Supabase RLS for privacy and Next.js SSR for performance.",
 
