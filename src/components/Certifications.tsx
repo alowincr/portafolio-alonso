@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Award } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
-const certIds = [1, 2, 3, 4, 5, 7, 8, 6, 9];
+const certIds = [10, 11, 1, 2, 5, 7, 8, 6, 9];
 
 export default function Certifications() {
   const { t } = useLanguage();

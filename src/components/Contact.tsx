@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, XCircle, Loader2, MapPin, Phone } from "lucide-react";
+import { CheckCircle2, XCircle, Loader2, MapPin } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useState, useEffect } from "react";
 
@@ -179,13 +179,6 @@ export default function Contact() {
                         {t("contact.location.value")}
                       </span>
                     </div>
-                    <a
-                      href={`tel:${t("contact.phone.value").replace(/\s/g, "")}`}
-                      className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      <Phone className="h-4 w-4 text-primary flex-shrink-0" />
-                      {t("contact.phone.value")}
-                    </a>
                   </div>
 
                   <p className="text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-5">

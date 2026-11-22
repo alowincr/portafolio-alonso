@@ -169,7 +169,7 @@ export default function Navbar() {
             <button
               onClick={() => setMobileOpen((v) => !v)}
               className="p-2 rounded-md hover:bg-muted transition-colors"
-              aria-label={t("a11y.toggleMenu")}
+              aria-label={t(mobileOpen ? "a11y.closeMenu" : "a11y.openMenu")}
               aria-expanded={mobileOpen}
               aria-controls="mobile-menu"
             >

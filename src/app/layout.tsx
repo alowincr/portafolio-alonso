@@ -108,7 +108,6 @@ export default function RootLayout({
               description:
                 "Estudiante de Ingeniería de Sistemas y desarrollador fullstack especializado en React, Next.js, Java y Spring Boot.",
               url: siteUrl,
-              telephone: "+51 988 422 298",
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Lima",
