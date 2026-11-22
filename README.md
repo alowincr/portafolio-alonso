@@ -13,7 +13,7 @@ Portafolio personal **bilingüe (ES/EN)** de Alonso Carbajal, estudiante de Inge
 - `sitemap.xml`, `robots.txt` y manifest PWA generados desde el App Router.
 - Accesibilidad: enlace «Saltar al contenido», landmarks, `aria-label`, foco visible y textos alternativos.
 - Formulario de contacto vía [Formspree](https://formspree.io) con validación y notificaciones tipo toast.
-- Descarga del CV desde `/public/CV_AlonsoCarbajal2.pdf`.
+- Descarga del CV desde `/public/CV_AlonsoCarbajal.pdf`.
 
 ## Stack
 
@@ -147,7 +147,7 @@ Para añadir o editar un texto, actualiza su clave en **ambos** idiomas (`es` y 
 - **Colores, tipografía y utilidades:** `src/app/globals.css`.
 - **URL del sitio:** variable `NEXT_PUBLIC_SITE_URL` (o `src/lib/site.ts` para cambiar los fallbacks).
 - **Formulario:** `NEXT_PUBLIC_FORMSPREE_ID` o el endpoint definido en `src/components/Contact.tsx`.
-- **CV:** reemplaza `public/CV_AlonsoCarbajal2.pdf` y actualiza el `href` en `src/components/Hero.tsx` si cambias el nombre.
+- **CV:** reemplaza `public/CV_AlonsoCarbajal.pdf` y actualiza el `href` en `src/components/Hero.tsx` si cambias el nombre.
 - **Metadatos y SEO:** `src/app/layout.tsx`, `manifest.ts`, `robots.ts`, `sitemap.ts` y `opengraph-image.tsx`.
 
 ## Despliegue

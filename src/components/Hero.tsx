@@ -65,7 +65,7 @@ export default function Hero() {
               {t("hero.btn.contact")}
             </a>
             <a
-              href="/CV_AlonsoCarbajal2.pdf"
+              href="/CV_AlonsoCarbajal.pdf"
               target="_blank"
               rel="noopener noreferrer"
               download="CV_Alonso_Carbajal.pdf"
