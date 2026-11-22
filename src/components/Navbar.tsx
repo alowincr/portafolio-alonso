@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
 import { Sun, Moon, Languages, Menu, X } from "lucide-react";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,6 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function Navbar() {
   const { language, setLanguage, t } = useLanguage();
   const { theme, setTheme } = useTheme();
+  const router = useRouter();
   const mounted = useSyncExternalStore(() => () => {}, () => true, () => false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -54,7 +56,12 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScrollSpy);
   }, []);
 
-  const toggleLanguage = () => setLanguage(language === "es" ? "en" : "es");
+  const toggleLanguage = () => {
+    const next = language === "es" ? "en" : "es";
+    setLanguage(next);
+    // /en has its own URL so search engines can index the English version.
+    router.push(next === "en" ? "/en" : "/");
+  };
   const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
 
   const navLinks = [

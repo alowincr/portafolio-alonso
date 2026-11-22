@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { Karla, Delius } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeProvider";
@@ -41,7 +42,6 @@ export const metadata: Metadata = {
   creator: "Alonso Carbajal",
   category: "technology",
   formatDetection: { email: false, address: false, telephone: false },
-  ...(siteUrl ? { alternates: { canonical: "/" } } : {}),
   robots: {
     index: true,
     follow: true,
@@ -84,14 +84,17 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const requestHeaders = await headers();
+  const locale = requestHeaders.get("x-locale") === "en" ? "en" : "es";
+
   return (
     <html
-      lang="es"
+      lang={locale}
       suppressHydrationWarning
       className={`${karla.variable} ${delius.variable} scroll-smooth`}
     >
@@ -106,7 +109,9 @@ export default function RootLayout({
               alternateName: "Alonso Carbajal",
               jobTitle: "Fullstack Developer",
               description:
-                "Estudiante de Ingeniería de Sistemas y desarrollador fullstack especializado en React, Next.js, Java y Spring Boot.",
+                locale === "en"
+                  ? "Systems Engineering student and fullstack developer specializing in React, Next.js, Java and Spring Boot."
+                  : "Estudiante de Ingeniería de Sistemas y desarrollador fullstack especializado en React, Next.js, Java y Spring Boot.",
               url: siteUrl,
               address: {
                 "@type": "PostalAddress",
@@ -136,7 +141,7 @@ export default function RootLayout({
           }}
         />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true}>
-          <LanguageProvider>{children}</LanguageProvider>
+          <LanguageProvider initialLanguage={locale}>{children}</LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

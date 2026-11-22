@@ -29,13 +29,14 @@ const translations: Translations = {
     "a11y.openMenu": "Abrir menú de navegación",
     "a11y.closeMenu": "Cerrar menú de navegación",
     "a11y.home": "Ir al inicio",
+    "a11y.skip": "Saltar al contenido",
     "a11y.github": "GitHub de Alonso Carbajal",
     "a11y.linkedin": "LinkedIn de Alonso Carbajal",
 
     // Hero
     "hero.badge": "Disponible para prácticas y primer empleo",
-    "hero.title1": "Estudiante y desarrollador Fullstack",
-    "hero.desc": "Cursando Ing. de Sistemas (10mo ciclo), con foco en desarrollo web, análisis de datos y UX/UI. Construyo soluciones de extremo a extremo, del frontend al backend, con código limpio y arquitecturas bien diseñadas.",
+    "hero.title1": "Estudiante de último ciclo y desarrollador Fullstack",
+    "hero.desc": "Combino desarrollo web, análisis de datos y UX/UI para construir soluciones de extremo a extremo, del frontend al backend, con código limpio y arquitecturas bien diseñadas.",
     "hero.btn.projects": "Ver Proyectos",
     "hero.btn.contact": "Contactar",
     "hero.btn.cv": "Descargar CV",
@@ -187,13 +188,14 @@ const translations: Translations = {
     "a11y.openMenu": "Open navigation menu",
     "a11y.closeMenu": "Close navigation menu",
     "a11y.home": "Go to home",
+    "a11y.skip": "Skip to content",
     "a11y.github": "Alonso Carbajal's GitHub",
     "a11y.linkedin": "Alonso Carbajal's LinkedIn",
 
     // Hero
     "hero.badge": "Open to internships & entry-level roles",
-    "hero.title1": "Student & Fullstack Developer",
-    "hero.desc": "Currently in my 10th semester of Systems Engineering, focused on software development, data analysis and UX/UI. I build end-to-end solutions, from frontend to backend, with clean code and well-designed architectures.",
+    "hero.title1": "Final-semester student & Fullstack Developer",
+    "hero.desc": "I combine web development, data analysis and UX/UI to build end-to-end solutions, from frontend to backend, with clean code and well-designed architectures.",
     "hero.btn.projects": "View Projects",
     "hero.btn.contact": "Contact Me",
     "hero.btn.cv": "Download CV",
@@ -334,16 +336,25 @@ const translations: Translations = {
 
 const LanguageContext = createContext<LanguageContextProps | undefined>(undefined);
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>("es");
+export function LanguageProvider({
+  children,
+  initialLanguage = "es",
+}: {
+  children: ReactNode;
+  initialLanguage?: Language;
+}) {
+  const [language, setLanguage] = useState<Language>(initialLanguage);
 
   useEffect(() => {
+    // /en is a fixed English route, so a previous localStorage choice must not override it.
+    if (initialLanguage === "en") return;
+
     const saved = localStorage.getItem("language") as Language;
     if (saved === "es" || saved === "en") {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setLanguage(saved);
     }
-  }, []);
+  }, [initialLanguage]);
 
   useEffect(() => {
     document.documentElement.lang = language;

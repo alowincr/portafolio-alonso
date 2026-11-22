@@ -36,8 +36,8 @@ export default function About() {
 
   const stats = [
     { value: "3+", label: t("about.stats.exp"), color: "text-primary" },
-    { value: "3+", label: t("about.stats.projects"), color: "text-accent" },
-    { value: "9+", label: t("about.stats.certs"), color: "text-primary" },
+    { value: "5+", label: t("about.stats.projects"), color: "text-accent" },
+    { value: "10+", label: t("about.stats.certs"), color: "text-primary" },
   ];
 
   return (

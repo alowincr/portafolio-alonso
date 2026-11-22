@@ -6,11 +6,12 @@ Portafolio personal **bilingüe (ES/EN)** de Alonso Carbajal, estudiante de Inge
 
 ## Características
 
-- Interfaz bilingüe español/inglés con cambio de idioma en tiempo real y persistencia en `localStorage`.
+- Interfaz bilingüe español/inglés: `/` es la versión española (con preferencia persistida en `localStorage`) y `/en` es una ruta inglesa fija e indexable.
 - Tema claro/oscuro/sistema con [next-themes](https://github.com/pacocoursey/next-themes).
 - Diseño responsive, animaciones con [Framer Motion](https://motion.dev) y respeto por `prefers-reduced-motion`.
-- SEO listo para producción: metadata, canonical, JSON-LD (`Person`), Open Graph, Twitter Cards e imagen OG generada dinámicamente.
-- `sitemap.xml`, `robots.txt` y manifest PWA generados desde el App Router.
+- SEO bilingüe: metadata por ruta con `canonical` y `hreflang` (`es`, `en`, `x-default`), JSON-LD (`Person`), Open Graph, Twitter Cards e imagen OG generada dinámicamente.
+- `src/proxy.ts` inyecta la cabecera `x-locale` para que el `<html lang>` y el provider de idioma coincidan con la ruta solicitada.
+- `sitemap.xml` (con `/` y `/en`), `robots.txt` y manifest PWA generados desde el App Router.
 - Accesibilidad: enlace «Saltar al contenido», landmarks, `aria-label`, foco visible y textos alternativos.
 - Formulario de contacto vía [Formspree](https://formspree.io) con validación y notificaciones tipo toast.
 - Descarga del CV desde `/public/CV_AlonsoCarbajal.pdf`.
@@ -94,9 +95,12 @@ Si el valor no incluye protocolo, se antepone `https://`. Esa URL se usa en la m
 
 ```text
 src/
+├── proxy.ts                 # cabecera x-locale según la ruta (/ → es, /en → en)
 ├── app/
 │   ├── layout.tsx           # metadata, fuentes, providers, JSON-LD y viewport
-│   ├── page.tsx             # composición de las secciones y enlace de salto
+│   ├── page.tsx             # metadata ES + composición de las secciones
+│   ├── en/
+│   │   └── page.tsx         # metadata EN y hreflang para /en
 │   ├── not-found.tsx        # página 404 bilingüe
 │   ├── globals.css          # tema, utilidades y accesibilidad
 │   ├── manifest.ts          # manifest PWA
@@ -113,7 +117,8 @@ src/
 │   ├── Projects.tsx
 │   ├── Contact.tsx          # formulario Formspree y enlaces sociales
 │   ├── Footer.tsx
-│   └── ScrollToTop.tsx
+│   ├── ScrollToTop.tsx
+│   └── SiteContent.tsx      # secciones compartidas por / y /en
 ├── context/
 │   ├── LanguageContext.tsx  # traducciones ES/EN y hook useLanguage
 │   └── ThemeProvider.tsx    # wrapper de next-themes
@@ -125,7 +130,7 @@ public/                      # CV, imágenes de proyectos, favicons e iconos PWA
 
 ## Contenido bilingüe
 
-Los textos ES/EN viven en `src/context/LanguageContext.tsx`. Cada sección usa un prefijo de claves:
+Los textos ES/EN viven en `src/context/LanguageContext.tsx`. Cada sección usa un prefijo de claves. La ruta `/` arranca en español y respeta el `localStorage`; `/en` está forzado a inglés y no se ve afectado por la preferencia guardada. El selector del navbar navega entre ambas rutas.
 
 | Prefijo | Sección |
 |---|---|

@@ -7,3 +7,14 @@ export function getSiteUrl(): string | undefined {
 }
 
 export const fallbackSiteUrl = "http://localhost:3000";
+
+export function getLanguageAlternates(canonical: "/" | "/en" = "/") {
+  return {
+    canonical,
+    languages: {
+      es: "/",
+      en: "/en",
+      "x-default": "/",
+    },
+  };
+}
