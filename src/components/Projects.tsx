@@ -302,12 +302,16 @@ export default function Projects() {
                     projects[idx]?.title ?? ""
                   }`}
                   aria-current={active === idx ? "true" : undefined}
-                  className={`h-2.5 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 ${
-                    active === idx
-                      ? "w-6 bg-primary"
-                      : "w-2.5 bg-border hover:bg-muted-foreground/50"
-                  }`}
-                />
+                  className="group/dot relative flex h-6 w-6 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+                >
+                  <span
+                    className={`block rounded-full transition-all ${
+                      active === idx
+                        ? "h-2.5 w-6 bg-primary"
+                        : "h-2.5 w-2.5 bg-border group-hover/dot:bg-muted-foreground/50"
+                    }`}
+                  />
+                </button>
               ))}
             </div>
 
