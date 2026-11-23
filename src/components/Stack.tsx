@@ -96,7 +96,7 @@ export default function Stack() {
   }> = [
     {
       title: t("stack.frontend"),
-      gradient: "from-blue-500/10 to-cyan-500/10",
+      gradient: "from-blue-500/20 to-blue-600/10",
       accent: "border-blue-500/30",
       items: [
         { name: "React", icon: siReact },
@@ -110,7 +110,7 @@ export default function Stack() {
     },
     {
       title: t("stack.backend"),
-      gradient: "from-green-500/10 to-emerald-500/10",
+      gradient: "from-lime-500/25 to-green-500/15",
       accent: "border-green-500/30",
       items: [
         { name: "Java", icon: siOpenjdk },
@@ -125,7 +125,7 @@ export default function Stack() {
     },
     {
       title: t("stack.tools"),
-      gradient: "from-purple-500/10 to-pink-500/10",
+      gradient: "from-purple-500/20 to-pink-500/15",
       accent: "border-purple-500/30",
       items: [
         { name: "Git", icon: siGit },

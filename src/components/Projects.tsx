@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Code2, ExternalLink } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import Spotlight, { useSpotlight } from "@/components/Spotlight";
 import Image from "next/image";
 
 interface Project {
@@ -69,6 +70,7 @@ interface CarouselMetrics {
 
 export default function Projects() {
   const { t } = useLanguage();
+  const spotlight = useSpotlight<HTMLElement>();
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const [pages, setPages] = useState(projects.length);
@@ -190,7 +192,7 @@ export default function Projects() {
           <div
             ref={trackRef}
             onScroll={handleScroll}
-            className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden motion-reduce:scroll-auto"
+            className="flex snap-x snap-mandatory gap-6 overflow-x-auto overflow-y-hidden scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden motion-reduce:scroll-auto"
           >
             {projects.map((project, idx) => (
               <div
@@ -201,14 +203,20 @@ export default function Projects() {
                 className="w-full shrink-0 snap-start sm:w-[calc(50%-0.75rem)]"
               >
                 <motion.article
+                  {...spotlight}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.45, delay: 0.05 }}
                   viewport={{ once: true }}
                   className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm hover:shadow-lg hover:shadow-primary/10 hover:border-primary/40 transition-all duration-300"
                 >
+                  <Spotlight key="project-spotlight" />
+
                   {/* Screenshot */}
-                  <div className="relative aspect-video w-full overflow-hidden bg-muted">
+                  <div
+                    key="project-image"
+                    className="relative z-10 aspect-video w-full overflow-hidden bg-muted"
+                  >
                     <Image
                       src={project.image}
                       alt={`${project.title} — ${t("projects.view")}`}
@@ -221,7 +229,10 @@ export default function Projects() {
                   </div>
 
                   {/* Content */}
-                  <div className="flex flex-1 flex-col p-4 sm:p-5">
+                  <div
+                    key="project-content"
+                    className="relative z-10 flex flex-1 flex-col p-4 sm:p-5"
+                  >
                     <h3 className="text-base sm:text-lg font-bold mb-1.5">
                       {project.title}
                     </h3>

@@ -3,11 +3,13 @@
 import { motion } from "framer-motion";
 import { Award } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import Spotlight, { useSpotlight } from "@/components/Spotlight";
 
 const certIds = [10, 11, 1, 2, 5, 7, 8, 6, 9];
 
 export default function Certifications() {
   const { t } = useLanguage();
+  const spotlight = useSpotlight<HTMLDivElement>();
 
   return (
     <section id="certs" className="py-16 sm:py-20 relative">
@@ -39,7 +41,7 @@ export default function Certifications() {
             const hasUrl = url.startsWith("http");
 
             const card = (
-              <div className="flex items-start gap-3 sm:gap-4">
+              <div className="relative z-10 flex items-start gap-3 sm:gap-4">
                 <div className="p-2.5 sm:p-3 bg-primary/10 rounded-xl flex-shrink-0 mt-0.5">
                   <Award className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
                 </div>
@@ -64,29 +66,34 @@ export default function Certifications() {
 
             return (
               <motion.div
+                {...spotlight}
                 key={id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45, delay: idx * 0.08 }}
                 viewport={{ once: true }}
-                className={`glass p-5 sm:p-6 rounded-2xl border border-border/50 transition-colors group ${
+                className={`glass relative overflow-hidden p-5 sm:p-6 rounded-2xl border border-border/50 transition-colors group ${
                   hasUrl
                     ? "hover:border-primary/40 cursor-pointer"
                     : ""
                 }`}
               >
-                {hasUrl ? (
-                  <a
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    {card}
-                  </a>
-                ) : (
-                  card
-                )}
+                <Spotlight key="cert-spotlight" />
+
+                <div key="cert-content" className="relative z-10">
+                  {hasUrl ? (
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block"
+                    >
+                      {card}
+                    </a>
+                  ) : (
+                    card
+                  )}
+                </div>
               </motion.div>
             );
           })}
