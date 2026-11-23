@@ -78,17 +78,14 @@ html {
   }
 }
 
-/* Glassmorphism utilities */
+/* Glassmorphism utilities — theme-aware, with solid fallbacks */
 @utility glass {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-:root.dark .glass {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--background);
+  background: color-mix(in srgb, var(--background) 88%, transparent);
+  border: 1px solid var(--border);
+  border-color: color-mix(in srgb, var(--border) 70%, transparent);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
 }
 
 @utility text-gradient {

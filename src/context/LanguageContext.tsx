@@ -16,6 +16,7 @@ type Translations = Record<Language, TranslationMap>;
 const translations: Translations = {
   es: {
     // Navigation
+    "nav.menu": "Menú de navegación",
     "nav.about": "Sobre Mí",
     "nav.experience": "Experiencia",
     "nav.stack": "Stack",
@@ -175,6 +176,7 @@ const translations: Translations = {
   },
   en: {
     // Navigation
+    "nav.menu": "Navigation menu",
     "nav.about": "About",
     "nav.experience": "Experience",
     "nav.stack": "Stack",

@@ -168,11 +168,25 @@ export default function Projects() {
 
         {/* Carousel */}
         <div
-          className="relative max-w-4xl"
+          className="relative max-w-4xl rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-4 focus-visible:ring-offset-background"
           role="region"
           aria-roledescription="carousel"
           aria-label={t("projects.title")}
+          tabIndex={0}
+          onKeyDown={(event) => {
+            if (event.key === "ArrowLeft") {
+              event.preventDefault();
+              goPrev();
+            }
+            if (event.key === "ArrowRight") {
+              event.preventDefault();
+              goNext();
+            }
+          }}
         >
+          <div className="sr-only" aria-live="polite">
+            {`${active + 1} / ${pages}`}
+          </div>
           <div
             ref={trackRef}
             onScroll={handleScroll}

@@ -36,6 +36,20 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Close on Escape and move focus into the drawer when it opens
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileOpen(false);
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.getElementById("mobile-menu")?.querySelector("button")?.focus();
+
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [mobileOpen]);
+
   // Highlight the section currently in view
   useEffect(() => {
     const sectionIds = ["home", "about", "experience", "stack", "certs", "projects", "contact"];
@@ -83,7 +97,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 w-full z-50 border-b border-border/50 glass">
+      <nav className="fixed top-0 w-full z-50 border-b border-border/60 bg-background/90 shadow-sm backdrop-blur-xl supports-[backdrop-filter]:bg-background/75">
         {/* Scroll progress bar */}
         <div
           className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-primary to-accent transition-none"
@@ -194,22 +208,26 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="fixed top-16 left-0 right-0 z-40 glass border-b border-border/50 md:hidden"
+            initial={{ opacity: 0, y: -8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.98 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+            className="fixed left-2 right-2 top-[4.25rem] z-40 origin-top rounded-2xl border border-border/70 bg-background/95 p-2 shadow-2xl shadow-black/15 backdrop-blur-xl md:hidden"
           >
-            <nav id="mobile-menu" className="flex flex-col px-4 py-4 gap-1">
+            <nav
+              id="mobile-menu"
+              aria-label={t("nav.menu")}
+              className="flex flex-col gap-1"
+            >
               {navLinks.map((link) => (
                 <button
                   key={link.href}
                   onClick={() => handleNavClick(link.href)}
                   aria-current={activeSection === link.id ? "page" : undefined}
-                  className={`text-left py-3 px-4 rounded-lg text-sm font-medium transition-colors ${
+                  className={`text-left rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 active:scale-[0.98] motion-reduce:transform-none motion-reduce:transition-none ${
                     activeSection === link.id
-                      ? "bg-primary/10 text-primary"
-                      : "hover:bg-muted hover:text-primary"
+                      ? "bg-primary/10 text-primary ring-1 ring-primary/20"
+                      : "text-foreground hover:bg-muted hover:text-primary motion-safe:hover:-translate-y-0.5"
                   }`}
                 >
                   {link.label}
@@ -227,7 +245,7 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-30 bg-black/20 md:hidden"
+            className="fixed inset-0 z-30 bg-black/25 backdrop-blur-[2px] dark:bg-black/60 md:hidden"
             onClick={() => setMobileOpen(false)}
           />
         )}
